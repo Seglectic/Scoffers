@@ -6,6 +6,7 @@
 
 var twitter = require("twitter");
 var keys = require("./config.json");
+//var fs = require("fs")
 
 /*
 			General purpose methods
@@ -54,14 +55,19 @@ Scoffers = function(){
 	this.dataStream = function(stream){
 		stream.on('data',function(tweet){
 
-			//Check if has Khal ID
-			if(tweet.user.id_str==='40078553'){
-				console.log(tweet.user.name+" made a #joke: \n"+tweet.text);
-				self.goodOne(tweet);
-			}else{
-				var time = new Date().toLocaleString().replace(',','')+"|";
-				console.log(time,tweet.user.name,"| ",tweet.text);
+			
+			//Check if contains '#joke'
+			if (tweet.text.indexOf("#joke")>-1){
+				//Check if user is Khal, send a good'n
+				if(tweet.user.id_str==='40078553'){
+					console.log(tweet.user.name+" made a #joke: \n"+tweet.text);
+					self.goodOne(tweet);
+				}
+				return
 			}
+
+			var time = new Date().toLocaleString().replace(',','')+"|";
+			console.log(time,tweet.user.name,"| ",tweet.text);
 
 		});
 
