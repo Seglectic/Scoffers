@@ -59,7 +59,8 @@ Scoffers = function(){
 				console.log(tweet.user.name+" made a #joke: \n"+tweet.text);
 				self.goodOne(tweet);
 			}else{
-				console.log(tweet.user.name,": ",tweet.text);
+				var time = new Date().toLocaleString().replace(',','')+"|";
+				console.log(time,tweet.user.name,"| ",tweet.text);
 			}
 
 		});
@@ -70,7 +71,7 @@ Scoffers = function(){
 		});
 	}
 	post = {
-		track:"#joke",
+		track:"#joke,lol",
 		include_retweets:false
 	}
 	this.client.stream("statuses/filter",post,this.dataStream)
